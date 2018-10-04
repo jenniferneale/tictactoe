@@ -1,4 +1,4 @@
-Setup: npm i
+Setup: npm i  
 Start: npm run start
 
 Play the version of Tic Tac Toe no one ever asked for: multiplayer! Play with your friends or against very stupid AI in this free-for-all. Further updates to this game would include, at a minimum:  
