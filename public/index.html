@@ -4,9 +4,24 @@
   <title>Tic Tac Toe</title>
   <meta charset="utf-8"/>
   <link rel="shortcut icon" type="image/png" href="/ThreeTurtleDayIcon.ico"/>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>Let's Play Tic Tac Toe!</h1>
-  <script type="module" src="./tictactoe.js"></script>
+  <form id="options">
+    Board Size: <input type="number" name="boardSize" id="boardSize" value=3>
+    Humans: <input type="number" name="numHumans" id="numHumans" value=1>
+    AIs: <input type="number" name="numAIs" id="numAIs" value=1>
+    <input type="submit" value="Submit">
+  </form> 
+  <table id="board">
+  </table>
+  <form id="end" onsubmit="">
+    <h2> won!</h2>
+    <input type="submit" value="Play Again?">
+  </form>
+  <div id="playerIndex">
+  </div>
+  <script type="module" src="tictactoe.js"></script>
 </body>
 </html>
