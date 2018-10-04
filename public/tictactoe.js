@@ -179,8 +179,6 @@ const isWinState = () => {
         if(i%(boardSize+1)==0) leftDiagonal.push(board[i]);
         if(i>0 && i<board.length-1 && i%(boardSize-1)==0) rightDiagonal.push(board[i]);
     }
-    console.log("left "+leftDiagonal);
-    console.log("right "+rightDiagonal)
 
     if(new Set(leftDiagonal).size == 1) return true;
     if(new Set(rightDiagonal).size == 1) return true;
