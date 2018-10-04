@@ -91,6 +91,10 @@ const resetTable = () => {
     let boardTable = document.getElementById("board");
     removeElements(boardTable);
 
+    // Hide win declaration screen
+    let endDiv = document.getElementById("end");
+    endDiv.style.display = "none";
+
     // Build a board based on the player's indicated size
     let boardSize = optionsForm.querySelector("#boardSize").value;
     board = [...Array(Math.pow(boardSize,2)).keys()];
