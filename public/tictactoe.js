@@ -35,16 +35,13 @@ function cellClicked(e) {
 
 // returns the index of the cell for the best move
 let randomMove = () => {
-    console.log("best move");
     let empties = board.filter(curr => typeof curr == "number");
     let rand = empties[Math.floor(Math.random() * empties.length)];
-    console.log("rand " + rand);
     return rand;
     
 }
 
 const takeTurn = cellToMark => {
-    console.log("take turn" + currentPlayer);
     // Mark cell with player's symbol and mark in board object
     let allPlayers = players.Human.concat(players.AI);
     let symbol = allPlayers[currentPlayer];
@@ -139,7 +136,7 @@ function updatePlayerIndex(playerIndex, num, species, symbolArr) {
 }
 
 
-console.log("I'm here!");
+console.log("Let's play!");
 resetTable();
 resetPlayers();
 cycleTurn();
