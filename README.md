@@ -2,6 +2,9 @@ Setup: npm i
 Start: npm run start
 
 Play the version of Tic Tac Toe no one ever asked for: multiplayer! Play with your friends or against very stupid AI in this free-for-all. Further updates to this game would include, at a minimum:  
++ The game must be able to start from either a human's first move, or the computer's, but let the human decide who will start each game.  
++ Keep and display a running tally of wins/losses/ties.  
++ The computer player should state in some form (log file, console.log, whatever) all possible moves whenever it's its turn.  
 + implementation of the minimax algorithm with pruning, to make the AI difficult to play against. It would also be fun to introduce points of weakness into the algorithm so that they occasionally make mistakes, and are not impossible to win against. It could also be fun to see how a supervised recursive neural network might learn which moves optimally follow which board states.  
 + The larger boards have also not been properly tested and explored. It is likely that changes would be necessary to make the game more fun as the board size increases, and to account for the extra stress on the minimax algorithm.  
 + The symbol assignment uses a rearrangement of the alphabet at present. It would be fun to add an emoji api to play with random or selected emojis instead.  
