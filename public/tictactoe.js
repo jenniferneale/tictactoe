@@ -9,6 +9,7 @@ let players = {
     AI: []
 }
 
+let boardSize = 3;
 let board = [...Array(9).keys()];
 
 // First player could later be randomized with a coin flip
@@ -35,10 +36,14 @@ function cellClicked(e) {
 
 // returns the index of the cell for the best move
 let randomMove = () => {
-    let empties = board.filter(curr => typeof curr == "number");
+    let empties = getEmpties();
     let rand = empties[Math.floor(Math.random() * empties.length)];
     return rand;
     
+}
+
+const getEmpties = () => {
+    return board.filter(curr => typeof curr == "number");
 }
 
 const takeTurn = cellToMark => {
@@ -49,11 +54,25 @@ const takeTurn = cellToMark => {
     cell.innerText = symbol;
     board[cellToMark] = symbol;
     // Check for endgame conditions
+    if(isWinState()) declareWin(true);
+    else if(getEmpties().length == 0) {
+        declareWin(false);
+    } else {
+        // Make cell unclickable
+        cell.style.pointerEvents = "none";
+        // Cycle turn
+        cycleTurn();
+    }
+}
 
-    // Make cell unclickable
-    cell.style.pointerEvents = "none";
-    // Cycle turn
-    cycleTurn();
+const declareWin = win => {
+    let cells = document.getElementsByClassName("cell");
+    Array.prototype.slice.call(cells).forEach(c => c.style.pointerEvents = "none");
+    let allPlayers = players.Human.concat(players.AI);
+    let endDiv = document.getElementById("end");
+    let endHeader = endDiv.querySelector("#winner");
+    winner.innerText = win? "Player " + allPlayers[currentPlayer] + " wins!" : "Aw, a tie!";
+    endDiv.style.display = "block";
 }
 
 async function cycleTurn() {
@@ -135,8 +154,43 @@ function updatePlayerIndex(playerIndex, num, species, symbolArr) {
     return symbolArr;
 }
 
+const isWinState = () => {
+    // Check for complete rows, columns, and diagonals.
+    // I'm sure there is a nicer way to do this, maybe even with matrix manipulations, but not today.
+    
+    // Check rows
+    for(let i=0; i<board.length; i+=boardSize) {
+        let row = board.slice(i, i+boardSize);
+        if(new Set(row).size == 1) return true;
+    }
+    // Check columns
+    for(let i=0; i<boardSize; i++) {
+        let col = [];
+        
+        for(let j=i; j<board.length; j+=boardSize) {
+            col.push(board[j]);
+        }
+        if(new Set(col).size == 1) return true;
+    }
+    // Check diagonals
+    let leftDiagonal = [];
+    let rightDiagonal = [];
+    for(let i=0; i< board.length; i++) {
+        if(i%(boardSize+1)==0) leftDiagonal.push(board[i]);
+        if(i>0 && i<board.length-1 && i%(boardSize-1)==0) rightDiagonal.push(board[i]);
+    }
+    console.log("left "+leftDiagonal);
+    console.log("right "+rightDiagonal)
+
+    if(new Set(leftDiagonal).size == 1) return true;
+    if(new Set(rightDiagonal).size == 1) return true;
+    return false;
+}
+
 
 console.log("Let's play!");
 resetTable();
 resetPlayers();
 cycleTurn();
+
+isWinState();
