@@ -37,6 +37,7 @@ function cellClicked(e) {
 // returns the index of the cell for the best move
 let randomMove = () => {
     let empties = getEmpties();
+    console.log("Available moves: " + empties.join(' '));
     let rand = empties[Math.floor(Math.random() * empties.length)];
     return rand;
     
@@ -96,7 +97,7 @@ const resetTable = () => {
     endDiv.style.display = "none";
 
     // Build a board based on the player's indicated size
-    let boardSize = optionsForm.querySelector("#boardSize").value;
+    boardSize = parseInt(optionsForm.querySelector("#boardSize").value);
     board = [...Array(Math.pow(boardSize,2)).keys()];
     // If I were doing this more, I might use a template library like nunjucks, 
     // or React components which are easy to iterate over.
@@ -182,6 +183,7 @@ const isWinState = () => {
     for(let i=0; i< board.length; i++) {
         if(i%(boardSize+1)==0) leftDiagonal.push(board[i]);
         if(i>0 && i<board.length-1 && i%(boardSize-1)==0) rightDiagonal.push(board[i]);
+        
     }
 
     if(new Set(leftDiagonal).size == 1) return true;
@@ -194,5 +196,3 @@ console.log("Let's play!");
 resetTable();
 resetPlayers();
 cycleTurn();
-
-isWinState();
